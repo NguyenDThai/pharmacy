@@ -1,26 +1,40 @@
 "use client";
 
 import React from "react";
-import { Search, Bell, ChevronDown } from "lucide-react";
+import { Search, Bell, ChevronDown, Menu } from "lucide-react";
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   return (
-    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-10 sticky top-0 z-40">
-      {/* Search Bar */}
-      <div className="relative w-full max-w-xl">
-        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-          <Search className="h-4.5 w-4.5 text-slate-400" />
+    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-4 md:px-10 sticky top-0 z-40">
+      <div className="flex items-center gap-4 flex-1">
+        {/* Mobile Menu Toggle */}
+        <button 
+          onClick={onMenuClick}
+          className="lg:hidden p-2 text-slate-500 hover:bg-slate-50 rounded-xl transition-colors"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+
+        {/* Search Bar */}
+        <div className="relative w-full max-w-xl hidden sm:block">
+          <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+            <Search className="h-4.5 w-4.5 text-slate-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Tìm kiếm thuốc, bệnh nhân, hóa đơn..."
+            className="w-full bg-[#f1f5f9] border-none rounded-2xl py-3 pl-14 pr-5 focus:ring-2 focus:ring-blue-500/10 focus:bg-white text-slate-700 placeholder:text-slate-400 placeholder:font-medium transition-all text-sm"
+          />
         </div>
-        <input
-          type="text"
-          placeholder="Tìm kiếm thuốc, bệnh nhân, hóa đơn..."
-          className="w-full bg-[#f1f5f9] border-none rounded-2xl py-3 pl-14 pr-5 focus:ring-2 focus:ring-blue-500/10 focus:bg-white text-slate-700 placeholder:text-slate-400 placeholder:font-medium transition-all text-sm"
-        />
       </div>
 
       {/* Right Side Actions */}
-      <div className="flex items-center gap-6">
-        <button className="bg-[#0061d5] hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-md shadow-blue-100 active:scale-95 text-sm">
+      <div className="flex items-center gap-3 md:gap-6">
+        <button className="hidden md:block bg-[#0061d5] hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-md shadow-blue-100 active:scale-95 text-sm">
           Nhập kho
         </button>
 
