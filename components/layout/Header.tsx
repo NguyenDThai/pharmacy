@@ -2,17 +2,21 @@
 
 import React from "react";
 import { Search, Bell, ChevronDown, Menu } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface HeaderProps {
   onMenuClick: () => void;
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   return (
     <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-4 md:px-10 sticky top-0 z-40">
       <div className="flex items-center gap-4 flex-1">
         {/* Mobile Menu Toggle */}
-        <button 
+        <button
           onClick={onMenuClick}
           className="lg:hidden p-2 text-slate-500 hover:bg-slate-50 rounded-xl transition-colors"
         >
@@ -34,10 +38,6 @@ export function Header({ onMenuClick }: HeaderProps) {
 
       {/* Right Side Actions */}
       <div className="flex items-center gap-3 md:gap-6">
-        <button className="hidden md:block bg-[#0061d5] hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl transition-all shadow-md shadow-blue-100 active:scale-95 text-sm">
-          Nhập kho
-        </button>
-
         <div className="relative cursor-pointer group">
           <Bell className="w-5.5 h-5.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
@@ -50,7 +50,7 @@ export function Header({ onMenuClick }: HeaderProps) {
             className="w-10 h-10 rounded-xl bg-slate-100 object-cover"
           />
           <div className="hidden sm:block">
-            <p className="text-sm font-bold text-slate-800">Dr. Aris</p>
+            <p className="text-sm font-bold text-slate-800">{user?.name}</p>
           </div>
           <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-600" />
         </div>

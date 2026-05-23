@@ -13,10 +13,39 @@ import {
   PlusSquare,
   Check,
 } from "lucide-react";
+import { useLoginMutation } from "@/redux/api/authApi";
+import { setCredentials } from "@/redux/slides/authSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const result = await login(formData).unwrap();
+      dispatch(setCredentials({ user: result.user, token: result.token }));
+      toast.success("Đăng nhập thành công!");
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Đăng nhập thất bại!");
+    }
+  };
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-from),_transparent_px),_radial-gradient(circle_at_bottom_left,_var(--tw-gradient-to),_transparent_px)] from-blue-50 via-white to-blue-100/50 p-4 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
@@ -48,7 +77,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form className="space-y-7" onSubmit={(e) => e.preventDefault()}>
+        <form className="space-y-7" onSubmit={handleLogin}>
           {/* Username Input */}
           <div className="space-y-3">
             <label className="text-[12px] font-bold text-slate-400 uppercase tracking-widest ml-1">
@@ -58,9 +87,13 @@ const Login = () => {
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                 <User className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
-              <input
-                type="text"
-                placeholder="VD: duocsi_quantri"
+               <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="VD: duocsi_quantri@gmail.com"
                 className="block w-full pl-14 pr-5 py-5 bg-slate-50/50 border border-slate-200 rounded-2xl text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 focus:bg-white transition-all duration-300"
               />
             </div>
@@ -75,8 +108,12 @@ const Login = () => {
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                 <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
-              <input
+               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
                 placeholder="••••••••"
                 className="block w-full pl-14 pr-14 py-5 bg-slate-50/50 border border-slate-200 rounded-2xl text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 focus:bg-white transition-all duration-300"
               />
@@ -122,12 +159,13 @@ const Login = () => {
           </div>
 
           {/* Login Button */}
-          <button
+           <button
             type="submit"
-            className="w-full flex items-center justify-center py-5 px-8 rounded-2xl bg-[#0061d5] hover:bg-blue-700 text-white font-bold text-lg shadow-[0_12px_24px_-8px_rgba(0,97,213,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(0,97,213,0.5)] transform active:scale-[0.97] transition-all duration-300 group"
+            disabled={isLoading}
+            className="w-full flex items-center justify-center py-5 px-8 rounded-2xl bg-[#0061d5] hover:bg-blue-700 text-white font-bold text-lg shadow-[0_12px_24px_-8px_rgba(0,97,213,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(0,97,213,0.5)] transform active:scale-[0.97] transition-all duration-300 group disabled:opacity-70 disabled:cursor-not-allowed h-[68px]"
           >
-            Đăng nhập
-            <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1.5 transition-transform" />
+            {isLoading ? "Đang xác thực..." : "Đăng nhập"}
+            {!isLoading && <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1.5 transition-transform" />}
           </button>
         </form>
 

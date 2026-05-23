@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description: "Quản lý nhà thuốc",
 };
 
+import { StoreProvider } from "@/redux/StoreProvider";
+import { ToastContainer } from "react-toastify";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <StoreProvider>
+          {children}
+          <ToastContainer position="top-center" />
+        </StoreProvider>
+      </body>
     </html>
   );
 }
