@@ -25,7 +25,10 @@ export function useGetMe() {
           dispatch(logout());
         }
       } catch (error) {
-        console.error("Lỗi lấy thông tin người dùng đăng nhập:", error);
+        const err = error as { status?: number };
+        if (err?.status !== 401) {
+          console.error("Lỗi lấy thông tin người dùng đăng nhập:", error);
+        }
         dispatch(logout());
       } finally {
         dispatch(setLoading(false));

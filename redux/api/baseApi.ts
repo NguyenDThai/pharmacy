@@ -33,7 +33,11 @@ const baseQueryWithReauth: BaseQueryFn<
     api.dispatch(logout());
 
     // 2. Redirect về login
-    if (typeof window !== "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      window.location.pathname !== "/login" &&
+      window.location.pathname !== "/register"
+    ) {
       window.location.href = "/login";
     }
   }
