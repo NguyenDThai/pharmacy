@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user, isLoading } = useSelector((state: RootState) => state.auth);
 
   return (
     <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-4 md:px-10 sticky top-0 z-40">
@@ -50,7 +50,13 @@ export function Header({ onMenuClick }: HeaderProps) {
             className="w-10 h-10 rounded-xl bg-slate-100 object-cover"
           />
           <div className="hidden sm:block">
-            <p className="text-sm font-bold text-slate-800">{user?.name}</p>
+            {isLoading ? (
+              <div className="space-y-1.5">
+                <div className="h-4 w-20 bg-slate-200 animate-pulse rounded-md" />
+              </div>
+            ) : (
+              <p className="text-sm font-bold text-slate-800">{user?.name}</p>
+            )}
           </div>
           <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-600" />
         </div>

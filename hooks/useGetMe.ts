@@ -1,26 +1,26 @@
-import { logout, setCredentials } from "@/redux/slides/authSlice";
+import { logout, setCredentials, setLoading } from "@/redux/slides/authSlice";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useMeMutation } from "@/redux/api/authApi";
 
 export function useGetMe() {
-  const { user } = useSelector((state: RootState) => state.auth);
-  const [loading, setLoading] = useState(!user);
+  const { user, isLoading } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
+  const [getMe] = useMeMutation();
 
   useEffect(() => {
-    if (user) {
-      setLoading(false);
+    if (!isLoading || user) {
       return;
     }
 
     const fetchCurrentUser = async () => {
       try {
-        const res = await fetch("/api/me");
-        if (res.ok) {
-          const data = await res.json();
-          dispatch(setCredentials({ user: data.user, token: data.toke }));
+        const res = await getMe().unwrap();
+
+        if (res && res.user) {
+          dispatch(setCredentials({ user: res.user, token: res.token }));
         } else {
           dispatch(logout());
         }
@@ -28,12 +28,10 @@ export function useGetMe() {
         console.error("Lỗi lấy thông tin người dùng đăng nhập:", error);
         dispatch(logout());
       } finally {
-        setLoading(false);
+        dispatch(setLoading(false));
       }
     };
 
     fetchCurrentUser();
-  }, [dispatch, user]);
-
-  return { user, loading };
+  }, [dispatch, user, isLoading]);
 }
