@@ -1,23 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
-  ScanLine,
   Star,
   Minus,
   Plus,
   Trash2,
-  Banknote,
-  CreditCard,
   ArrowRight,
-  Search,
   PlusSquare,
   Syringe,
   Pill,
-  Thermometer,
   Stethoscope,
-  Scan,
-} from "lucide-react";
+  LucideIcon,
+} from 'lucide-react';
 
 interface Product {
   id: number;
@@ -25,8 +20,8 @@ interface Product {
   type: string;
   unit: string;
   price: number;
-  status: "Còn hàng" | "Sắp hết" | "Hết hàng";
-  icon: any;
+  status: 'Còn hàng' | 'Sắp hết' | 'Hết hàng';
+  icon: LucideIcon;
 }
 
 interface CartItem extends Product {
@@ -36,63 +31,63 @@ interface CartItem extends Product {
 const products: Product[] = [
   {
     id: 1,
-    name: "Amoxicillin 500mg",
-    type: "Viên nang",
-    unit: "20 Đơn vị",
+    name: 'Amoxicillin 500mg',
+    type: 'Viên nang',
+    unit: '20 Đơn vị',
     price: 24.5,
-    status: "Còn hàng",
+    status: 'Còn hàng',
     icon: PlusSquare,
   },
   {
     id: 2,
-    name: "Lisinopril 10mg",
-    type: "Viên nén",
-    unit: "30 Đơn vị",
+    name: 'Lisinopril 10mg',
+    type: 'Viên nén',
+    unit: '30 Đơn vị',
     price: 18.2,
-    status: "Còn hàng",
+    status: 'Còn hàng',
     icon: Pill,
   },
   {
     id: 3,
-    name: "Insulin Glargine",
-    type: "Tiêm",
-    unit: "10ml",
+    name: 'Insulin Glargine',
+    type: 'Tiêm',
+    unit: '10ml',
     price: 89.0,
-    status: "Sắp hết",
+    status: 'Sắp hết',
     icon: Syringe,
   },
   {
     id: 4,
-    name: "Metformin 850mg",
-    type: "Viên nén",
-    unit: "100 Đơn vị",
+    name: 'Metformin 850mg',
+    type: 'Viên nén',
+    unit: '100 Đơn vị',
     price: 12.4,
-    status: "Còn hàng",
+    status: 'Còn hàng',
     icon: Pill,
   },
   {
     id: 5,
-    name: "Albuterol HFA",
-    type: "Ống hít",
-    unit: "8.5g",
+    name: 'Albuterol HFA',
+    type: 'Ống hít',
+    unit: '8.5g',
     price: 35.0,
-    status: "Còn hàng",
+    status: 'Còn hàng',
     icon: Stethoscope,
   },
   {
     id: 6,
-    name: "Atorvastatin 20mg",
-    type: "Viên nén",
-    unit: "90 Đơn vị",
+    name: 'Atorvastatin 20mg',
+    type: 'Viên nén',
+    unit: '90 Đơn vị',
     price: 45.6,
-    status: "Còn hàng",
+    status: 'Còn hàng',
     icon: Pill,
   },
 ];
 
 export default function SalesPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [activeFilter, setActiveFilter] = useState("Tất cả");
+  const [activeFilter, setActiveFilter] = useState('Tất cả');
 
   const addToCart = (product: Product) => {
     setCart((prev) => {
@@ -101,7 +96,7 @@ export default function SalesPage() {
         return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item,
+            : item
         );
       }
       return [...prev, { ...product, quantity: 1 }];
@@ -116,7 +111,7 @@ export default function SalesPage() {
           return { ...item, quantity: newQty };
         }
         return item;
-      }),
+      })
     );
   };
 
@@ -126,7 +121,7 @@ export default function SalesPage() {
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0,
+    0
   );
   const tax = subtotal * 0.045;
   const total = subtotal + tax;
@@ -145,11 +140,11 @@ export default function SalesPage() {
               </h2>
             </div>
             <div className="flex bg-slate-100/50 p-1 rounded-xl gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
-              {["Giảm đau", "Kháng sinh", "Tiểu đường"].map((filter) => (
+              {['Giảm đau', 'Kháng sinh', 'Tiểu đường'].map((filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-3 md:px-4 py-1.5 rounded-lg text-[12px] md:text-[13px] font-bold transition-all ${activeFilter === filter ? "bg-white text-slate-900 shadow-sm" : "text-slate-400 hover:text-slate-600"}`}
+                  className={`px-3 md:px-4 py-1.5 rounded-lg text-[12px] md:text-[13px] font-bold transition-all ${activeFilter === filter ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
                 >
                   {filter}
                 </button>
@@ -170,9 +165,9 @@ export default function SalesPage() {
                   </div>
                   <span
                     className={`text-[9px] md:text-[10px] font-black px-2 py-1 md:px-2.5 md:py-1 rounded-lg uppercase tracking-wider ${
-                      product.status === "Còn hàng"
-                        ? "bg-emerald-50 text-emerald-600"
-                        : "bg-rose-50 text-rose-600"
+                      product.status === 'Còn hàng'
+                        ? 'bg-emerald-50 text-emerald-600'
+                        : 'bg-rose-50 text-rose-600'
                     }`}
                   >
                     {product.status}
@@ -196,7 +191,7 @@ export default function SalesPage() {
       {/* Right Section - Current Order Sidebar */}
       <div
         className="w-full lg:w-[480px] h-[600px] lg:h-full bg-white rounded-3xl md:rounded-5xl border border-slate-100 shadow-2xl shadow-slate-200/50 flex flex-col overflow-hidden animate-slide-up shrink-0"
-        style={{ animationDelay: "0.2s" }}
+        style={{ animationDelay: '0.2s' }}
       >
         <div className="p-6 md:p-8 border-b border-slate-50">
           <div className="flex items-center justify-between mb-2">
@@ -220,7 +215,9 @@ export default function SalesPage() {
           {cart.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center opacity-40">
               <PlusSquare className="w-16 h-16 md:w-20 md:h-20 text-slate-200 mb-4" />
-              <p className="text-slate-400 font-bold text-sm md:text-base">Chưa có sản phẩm nào</p>
+              <p className="text-slate-400 font-bold text-sm md:text-base">
+                Chưa có sản phẩm nào
+              </p>
             </div>
           ) : (
             cart.map((item) => (

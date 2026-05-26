@@ -4,11 +4,11 @@ import {
   BaseQueryFn,
   FetchArgs,
   FetchBaseQueryError,
-} from "@reduxjs/toolkit/query/react";
-import { logout } from "../slides/authSlice";
+} from '@reduxjs/toolkit/query/react';
+import { logout } from '../slides/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "/api",
+  baseUrl: '/api',
   prepareHeaders: (headers) => {
     // Tự động thêm token vào header nếu cần
     // const token = localStorage.getItem("token");
@@ -23,10 +23,10 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
+  const result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    console.warn("Phiên đăng nhập hết hạn (401). Đang đăng xuất...");
+    console.warn('Phiên đăng nhập hết hạn (401). Đang đăng xuất...');
 
     // Xử lý đăng xuất tại đây:
     // 1. Dispatch action clear credentials
@@ -34,11 +34,11 @@ const baseQueryWithReauth: BaseQueryFn<
 
     // 2. Redirect về login
     if (
-      typeof window !== "undefined" &&
-      window.location.pathname !== "/login" &&
-      window.location.pathname !== "/register"
+      typeof window !== 'undefined' &&
+      window.location.pathname !== '/login' &&
+      window.location.pathname !== '/register'
     ) {
-      window.location.href = "/login";
+      window.location.href = '/login';
     }
   }
 
@@ -46,8 +46,8 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseApi = createApi({
-  reducerPath: "api",
+  reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["User"],
+  tagTypes: ['User'],
   endpoints: () => ({}),
 });

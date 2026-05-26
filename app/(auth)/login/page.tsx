@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   User,
   Lock,
@@ -12,19 +12,19 @@ import {
   CheckCircle2,
   PlusSquare,
   Check,
-} from "lucide-react";
-import { useLoginMutation } from "@/redux/api/authApi";
-import { setCredentials } from "@/redux/slides/authSlice";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+} from 'lucide-react';
+import { useLoginMutation } from '@/redux/api/authApi';
+import { setCredentials } from '@/redux/slides/authSlice';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const router = useRouter();
@@ -40,10 +40,12 @@ const Login = () => {
     try {
       const result = await login(formData).unwrap();
       dispatch(setCredentials({ user: result.user, token: result.token }));
-      toast.success("Đăng nhập thành công!");
-      router.push("/");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Đăng nhập thất bại!");
+      toast.success('Đăng nhập thành công!');
+      router.push('/');
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Đăng nhập thất bại!');
+      console.error(error);
     }
   };
 
@@ -65,7 +67,7 @@ const Login = () => {
       {/* Login Card */}
       <div
         className="w-full max-w-[500px] bg-white rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-slate-100 p-12 animate-zoom-in opacity-0"
-        style={{ animationDelay: "0.2s" }}
+        style={{ animationDelay: '0.2s' }}
       >
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-extrabold text-slate-900 mb-4">
@@ -87,7 +89,7 @@ const Login = () => {
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                 <User className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
-               <input
+              <input
                 type="email"
                 name="email"
                 value={formData.email}
@@ -108,8 +110,8 @@ const Login = () => {
               <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                 <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
-               <input
-                type={showPassword ? "text" : "password"}
+              <input
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -121,7 +123,7 @@ const Login = () => {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-0 pr-5 flex items-center text-slate-400 hover:text-blue-500 transition-colors duration-300"
-                aria-label={showPassword ? "Hide password" : "Show password"}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5" />
@@ -140,7 +142,7 @@ const Login = () => {
               className="flex items-center group cursor-pointer select-none"
             >
               <div
-                className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-300 ${rememberMe ? "bg-blue-600 border-blue-600 shadow-lg shadow-blue-100" : "bg-slate-50 border-slate-200 group-hover:border-blue-400 group-hover:bg-blue-50/30"}`}
+                className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-300 ${rememberMe ? 'bg-blue-600 border-blue-600 shadow-lg shadow-blue-100' : 'bg-slate-50 border-slate-200 group-hover:border-blue-400 group-hover:bg-blue-50/30'}`}
               >
                 {rememberMe && (
                   <Check className="w-4 h-4 text-white stroke-4" />
@@ -159,20 +161,22 @@ const Login = () => {
           </div>
 
           {/* Login Button */}
-           <button
+          <button
             type="submit"
             disabled={isLoading}
             className="w-full flex items-center justify-center py-5 px-8 rounded-2xl bg-[#0061d5] hover:bg-blue-700 text-white font-bold text-lg shadow-[0_12px_24px_-8px_rgba(0,97,213,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(0,97,213,0.5)] transform active:scale-[0.97] transition-all duration-300 group disabled:opacity-70 disabled:cursor-not-allowed h-[68px]"
           >
-            {isLoading ? "Đang xác thực..." : "Đăng nhập"}
-            {!isLoading && <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1.5 transition-transform" />}
+            {isLoading ? 'Đang xác thực...' : 'Đăng nhập'}
+            {!isLoading && (
+              <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1.5 transition-transform" />
+            )}
           </button>
         </form>
 
         {/* Signup Link */}
         <div className="mt-12 text-center pt-8 border-t border-slate-50">
           <p className="text-[15px] text-slate-500">
-            Mới sử dụng Apothecary OS?{" "}
+            Mới sử dụng Apothecary OS?{' '}
             <Link
               href="/request-access"
               className="font-bold text-blue-600 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600 ml-1"
@@ -186,7 +190,7 @@ const Login = () => {
       {/* Security Badges */}
       <div
         className="flex flex-wrap items-center justify-center gap-4 mt-16 animate-slide-up opacity-0"
-        style={{ animationDelay: "0.4s" }}
+        style={{ animationDelay: '0.4s' }}
       >
         <div className="flex items-center gap-2.5 px-6 py-3 bg-white/70 backdrop-blur-md border border-slate-200/50 rounded-2xl shadow-sm hover:shadow-md hover:border-slate-300 transition-all cursor-default">
           <CheckCircle2 className="w-5 h-5 text-emerald-500" />

@@ -1,8 +1,8 @@
-import connectDB from "@/lib/mongodb";
-import User from "@/models/User";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import connectDB from '@/lib/mongodb';
+import User from '@/models/User';
+import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
@@ -10,10 +10,10 @@ export async function GET() {
 
     // Lấy token từ cookie
     const cookieStore = cookies();
-    const token = (await cookieStore).get("token")?.value;
+    const token = (await cookieStore).get('token')?.value;
 
     if (!token) {
-      return NextResponse.json({ message: "Chưa đăng nhập" }, { status: 401 });
+      return NextResponse.json({ message: 'Chưa đăng nhập' }, { status: 401 });
     }
 
     // xác thực JWT token
@@ -22,11 +22,11 @@ export async function GET() {
     };
 
     // Tìm thông tin của user trong DB
-    const user = await User.findById(decoded.id).select("-password");
+    const user = await User.findById(decoded.id).select('-password');
     if (!user) {
       return NextResponse.json(
-        { message: "Người dùng không tồn tại" },
-        { status: 404 },
+        { message: 'Người dùng không tồn tại' },
+        { status: 404 }
       );
     }
 
@@ -38,10 +38,10 @@ export async function GET() {
       },
       token,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { message: "Token không hợp lệ hoặc hết hạn" },
-      { status: 401 },
+      { message: 'Token không hợp lệ hoặc hết hạn' },
+      { status: 401 }
     );
   }
 }

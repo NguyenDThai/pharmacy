@@ -1,11 +1,18 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
-  throw new Error(
-    "Vui lòng định nghĩa biến MONGO_URI trong file .env"
-  );
+  throw new Error('Vui lòng định nghĩa biến MONGO_URI trong file .env');
+}
+
+declare global {
+  var mongoose:
+    | {
+        conn: typeof import('mongoose') | null;
+        promise: Promise<typeof import('mongoose')> | null;
+      }
+    | undefined;
 }
 
 /**
@@ -13,11 +20,10 @@ if (!MONGO_URI) {
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-let cached = (global as any).mongoose;
-
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+if (!globalThis.mongoose) {
+  globalThis.mongoose = { conn: null, promise: null };
 }
+const cached = globalThis.mongoose!;
 
 async function connectDB() {
   if (cached.conn) {
@@ -30,7 +36,7 @@ async function connectDB() {
     };
 
     cached.promise = mongoose.connect(MONGO_URI!, opts).then((mongoose) => {
-      console.log("=> Đã kết nối thành công tới MongoDB");
+      console.warn('=> Đã kết nối thành công tới MongoDB');
       return mongoose;
     });
   }

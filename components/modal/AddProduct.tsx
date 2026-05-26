@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { ChevronDown, Plus, X } from "lucide-react";
+import React, { useState } from 'react';
+import { ChevronDown, Plus, X } from 'lucide-react';
 import {
   formatVietnameseDate,
   getTodayISOString,
-} from "@/lib/formatVietnameseDate";
-import { validateProduct } from "@/lib/validateProduct";
+} from '@/lib/formatVietnameseDate';
+import { validateProduct } from '@/lib/validateProduct';
 
 interface AddProductProps {
   onClose: () => void;
@@ -12,17 +12,16 @@ interface AddProductProps {
 
 const AddProduct = ({ onClose }: AddProductProps) => {
   const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    quantity: "",
-    expiryDate: "",
+    name: '',
+    category: '',
+    quantity: '',
+    expiryDate: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [price, setPrice] = useState("");
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [price, setPrice] = useState('');
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
@@ -33,31 +32,31 @@ const AddProduct = ({ onClose }: AddProductProps) => {
 
     // Xóa lỗi của trường đó ngay khi người dùng bắt đầu sửa/nhập lại
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
     }
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/\D/g, "");
+    const rawValue = e.target.value.replace(/\D/g, '');
 
     if (!rawValue) {
-      setPrice("");
+      setPrice('');
       return;
     }
 
-    const formattedValue = new Intl.NumberFormat("vi-VN").format(
-      Number(rawValue),
+    const formattedValue = new Intl.NumberFormat('vi-VN').format(
+      Number(rawValue)
     );
     setPrice(formattedValue);
 
     // Tự động xóa thông báo lỗi của Giá bán ngay khi người dùng bắt đầu nhập lại giá mới
     if (errors.price) {
-      setErrors((prev) => ({ ...prev, price: "" }));
+      setErrors((prev) => ({ ...prev, price: '' }));
     }
   };
 
   //   Xử lý lại giá để gửi lên server
-  const rawPriceNumber = Number(price.replace(/\./g, ""));
+  const rawPriceNumber = Number(price.replace(/\./g, ''));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +74,8 @@ const AddProduct = ({ onClose }: AddProductProps) => {
         expiryDate: formData.expiryDate,
         price: rawPriceNumber,
       };
-      console.log("🚀 ~ handleSubmit ~ finalData:", finalData);
+
+      console.warn('🚀 ~ handleSubmit ~ finalData:', finalData);
 
       onClose();
     } else {
@@ -148,7 +148,6 @@ const AddProduct = ({ onClose }: AddProductProps) => {
                 id="category"
                 onChange={(e) => {
                   handleInputChange(e);
-                  setIsSelectOpen(false);
                   e.target.blur();
                 }}
                 value={formData.category}
@@ -208,11 +207,11 @@ const AddProduct = ({ onClose }: AddProductProps) => {
                 value={formData.expiryDate}
                 min={getTodayISOString(today)}
                 onFocus={(e) => {
-                  e.target.type = "date";
+                  e.target.type = 'date';
                 }}
                 onBlur={(e) => {
                   if (!e.target.value) {
-                    e.target.type = "text";
+                    e.target.type = 'text';
                   }
                 }}
                 onChange={handleInputChange}

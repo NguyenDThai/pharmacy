@@ -1,9 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
-  Plus,
-  Search,
   Filter,
   Pencil,
   Trash2,
@@ -13,65 +11,65 @@ import {
   ShieldCheck,
   Zap,
   PackagePlus,
-} from "lucide-react";
-import AddProduct from "@/components/modal/AddProduct";
+} from 'lucide-react';
+import AddProduct from '@/components/modal/AddProduct';
 
 const summaryCards = [
-  { label: "TỔNG SỐ MẶT HÀNG", value: "1.284", color: "text-blue-600" },
-  { label: "TỒN KHO THẤP", value: "12", color: "text-rose-600" },
-  { label: "SẮP HẾT HẠN", value: "24", color: "text-emerald-600" },
-  { label: "GIÁ TRỊ KHO", value: "$42.8k", color: "text-slate-800" },
+  { label: 'TỔNG SỐ MẶT HÀNG', value: '1.284', color: 'text-blue-600' },
+  { label: 'TỒN KHO THẤP', value: '12', color: 'text-rose-600' },
+  { label: 'SẮP HẾT HẠN', value: '24', color: 'text-emerald-600' },
+  { label: 'GIÁ TRỊ KHO', value: '$42.8k', color: 'text-slate-800' },
 ];
 
-const categories = ["Tất cả thuốc", "Kháng sinh", "Giảm đau", "Kháng virus"];
+const categories = ['Tất cả thuốc', 'Kháng sinh', 'Giảm đau', 'Kháng virus'];
 
 const inventoryData = [
   {
-    name: "Amoxicillin 500mg",
-    sku: "SKU: AMX-500-24",
-    category: "Kháng sinh",
+    name: 'Amoxicillin 500mg',
+    sku: 'SKU: AMX-500-24',
+    category: 'Kháng sinh',
     stock: 420,
     maxStock: 600,
-    expiry: "24 Th10, 2025",
-    price: "$12.40",
-    stockType: "normal",
+    expiry: '24 Th10, 2025',
+    price: '$12.40',
+    stockType: 'normal',
   },
   {
-    name: "Atorvastatin 20mg",
-    sku: "SKU: ATR-020-08",
-    category: "Statins",
+    name: 'Atorvastatin 20mg',
+    sku: 'SKU: ATR-020-08',
+    category: 'Statins',
     stock: 14,
     maxStock: 100,
-    expiry: "12 Th01, 2026",
-    price: "$24.00",
-    stockType: "low",
+    expiry: '12 Th01, 2026',
+    price: '$24.00',
+    stockType: 'low',
   },
   {
-    name: "Lisinopril 10mg",
-    sku: "SKU: LIS-010-15",
-    category: "ACE Inhibitors",
+    name: 'Lisinopril 10mg',
+    sku: 'SKU: LIS-010-15',
+    category: 'ACE Inhibitors',
     stock: 112,
     maxStock: 200,
-    expiry: "05 Th03, 2024",
-    price: "$8.50",
-    stockType: "normal",
-    expiryColor: "text-emerald-600",
+    expiry: '05 Th03, 2024',
+    price: '$8.50',
+    stockType: 'normal',
+    expiryColor: 'text-emerald-600',
   },
   {
-    name: "Metformin 850mg",
-    sku: "SKU: MET-850-12",
-    category: "Antidiabetic",
+    name: 'Metformin 850mg',
+    sku: 'SKU: MET-850-12',
+    category: 'Antidiabetic',
     stock: 890,
     maxStock: 1000,
-    expiry: "18 Th12, 2026",
-    price: "$15.75",
-    stockType: "normal",
+    expiry: '18 Th12, 2026',
+    price: '$15.75',
+    stockType: 'normal',
   },
 ];
 
 export default function InventoryPage() {
   const [showModal, setShowModal] = useState(false);
-  const [activeTab, setActiveTab] = useState("Tất cả thuốc");
+  const [activeTab, setActiveTab] = useState('Tất cả thuốc');
 
   return (
     <>
@@ -93,9 +91,9 @@ export default function InventoryPage() {
                   key={idx}
                   className={`px-4 md:px-6 py-2 flex flex-col items-center justify-center border-slate-50 ${
                     idx % 2 === 0
-                      ? "border-r md:border-r"
-                      : "md:border-r border-0"
-                  } ${idx >= 2 ? "mt-2 md:mt-0" : ""} last:border-0`}
+                      ? 'border-r md:border-r'
+                      : 'md:border-r border-0'
+                  } ${idx >= 2 ? 'mt-2 md:mt-0' : ''} last:border-0`}
                 >
                   <span className="text-[9px] md:text-[10px] font-black text-slate-400 tracking-widest uppercase mb-1 text-center">
                     {card.label}
@@ -127,8 +125,8 @@ export default function InventoryPage() {
                 onClick={() => setActiveTab(cat)}
                 className={`px-4 md:px-6 py-2.5 rounded-xl text-[14px] font-bold transition-all ${
                   activeTab === cat
-                    ? "bg-white text-blue-600 shadow-md shadow-blue-50"
-                    : "text-slate-500 hover:text-slate-800"
+                    ? 'bg-white text-blue-600 shadow-md shadow-blue-50'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
                 {cat}
@@ -175,9 +173,9 @@ export default function InventoryPage() {
                   <td className="py-6 md:py-8 px-6 md:px-10">
                     <div className="flex items-center gap-3 md:gap-5">
                       <div
-                        className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 ${item.stockType === "low" ? "bg-rose-50" : "bg-blue-50"}`}
+                        className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center shrink-0 ${item.stockType === 'low' ? 'bg-rose-50' : 'bg-blue-50'}`}
                       >
-                        {item.stockType === "low" ? (
+                        {item.stockType === 'low' ? (
                           <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-rose-600" />
                         ) : (
                           <div className="w-5 h-5 md:w-6 md:h-6 bg-blue-600 rounded-lg flex items-center justify-center p-1">
@@ -204,14 +202,14 @@ export default function InventoryPage() {
                     <div className="flex flex-col gap-2 min-w-[150px] md:min-w-[200px]">
                       <div className="w-full h-1.5 md:h-2 bg-slate-100 rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${item.stockType === "low" ? "bg-rose-600" : "bg-blue-600"}`}
+                          className={`h-full rounded-full ${item.stockType === 'low' ? 'bg-rose-600' : 'bg-blue-600'}`}
                           style={{
                             width: `${(item.stock / item.maxStock) * 100}%`,
                           }}
                         />
                       </div>
                       <p
-                        className={`text-[12px] md:text-[13px] font-black ${item.stockType === "low" ? "text-rose-600" : "text-slate-800"}`}
+                        className={`text-[12px] md:text-[13px] font-black ${item.stockType === 'low' ? 'text-rose-600' : 'text-slate-800'}`}
                       >
                         {item.stock} đơn vị
                       </p>
@@ -219,7 +217,7 @@ export default function InventoryPage() {
                   </td>
                   <td className="py-6 md:py-8 px-4 md:px-6">
                     <p
-                      className={`text-[14px] md:text-[15px] font-bold ${item.expiryColor || "text-slate-700"} whitespace-nowrap`}
+                      className={`text-[14px] md:text-[15px] font-bold ${item.expiryColor || 'text-slate-700'} whitespace-nowrap`}
                     >
                       {item.expiry}
                     </p>
@@ -247,7 +245,7 @@ export default function InventoryPage() {
           {/* Pagination bar */}
           <div className="py-6 px-6 md:px-10 bg-[#f8fafc]/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-[13px] md:text-[14px] font-bold text-slate-400 text-center md:text-left">
-              Đang hiển thị <span className="text-slate-800">1-4</span> trên{" "}
+              Đang hiển thị <span className="text-slate-800">1-4</span> trên{' '}
               <span className="text-slate-800">1.284</span> loại thuốc
             </p>
             <div className="flex items-center gap-3">
@@ -280,10 +278,10 @@ export default function InventoryPage() {
                 Tóm tắt sức khỏe kho hàng
               </h4>
               <p className="text-slate-600 font-medium leading-relaxed text-[14px] md:text-[16px]">
-                Chuỗi cung ứng hiện tại của bạn ổn định.{" "}
+                Chuỗi cung ứng hiện tại của bạn ổn định.{' '}
                 <span className="text-blue-600 font-bold">94%</span> hàng tồn
                 kho thiết yếu của bạn ở trên mức tới hạn. Hãy cân nhắc đặt mua
-                thêm <span className="font-bold underline">Atorvastatin</span>{" "}
+                thêm <span className="font-bold underline">Atorvastatin</span>{' '}
                 trong vòng 48 giờ tới.
               </p>
             </div>

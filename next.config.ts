@@ -1,7 +1,18 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.dicebear.com',
+        port: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

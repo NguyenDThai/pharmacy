@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   Package,
@@ -14,12 +14,12 @@ import {
   X,
   LogOut,
   LogIn,
-} from "lucide-react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useDispatch } from "react-redux";
-import { useLogoutMutation } from "@/redux/api/authApi";
-import { logout } from "@/redux/slides/authSlice";
+} from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { useLogoutMutation } from '@/redux/api/authApi';
+import { logout } from '@/redux/slides/authSlice';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -27,17 +27,16 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Bảng điều khiển", href: "/" },
-  { icon: Package, label: "Kho hàng", href: "/inventory" },
-  { icon: ShoppingCart, label: "Bán hàng", href: "/sales" },
-  { icon: History, label: "Lịch sử đơn hàng", href: "/history" },
+  { icon: LayoutDashboard, label: 'Bảng điều khiển', href: '/' },
+  { icon: Package, label: 'Kho hàng', href: '/inventory' },
+  { icon: ShoppingCart, label: 'Bán hàng', href: '/sales' },
+  { icon: History, label: 'Lịch sử đơn hàng', href: '/history' },
 ];
 
-const sidebarItems = [{ icon: Settings, label: "Cài đặt", href: "/settings" }];
+const sidebarItems = [{ icon: Settings, label: 'Cài đặt', href: '/settings' }];
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const dispatch = useDispatch();
-  const router = useRouter();
   const pathname = usePathname();
   const { user } = useSelector((state: RootState) => state.auth);
   const [logoutApi] = useLogoutMutation();
@@ -49,7 +48,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       onClose();
     } catch (error) {
-      console.error("Lỗi đăng xuất:", error);
+      console.error('Lỗi đăng xuất:', error);
     }
   };
 
@@ -65,7 +64,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       <aside
         className={`w-72 bg-[#f8fafc] border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 overflow-y-auto z-[70] transition-transform duration-300 lg:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand Logo & Close button */}
@@ -104,15 +103,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 onClick={() => onClose()} // Close sidebar when clicking a link on mobile
                 className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group ${
                   isActive
-                    ? "bg-white text-blue-600 shadow-sm"
-                    : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
                 }`}
               >
                 <item.icon
-                  className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${isActive ? "text-blue-600" : "text-slate-400 group-hover:text-slate-600"}`}
+                  className={`w-5 h-5 transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600'}`}
                 />
                 <span
-                  className={`text-[15px] font-bold ${isActive ? "text-slate-900" : ""}`}
+                  className={`text-[15px] font-bold ${isActive ? 'text-slate-900' : ''}`}
                 >
                   {item.label}
                 </span>

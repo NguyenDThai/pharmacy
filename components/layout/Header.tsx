@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Search, Bell, ChevronDown, Menu } from "lucide-react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import React from 'react';
+import { Search, Bell, ChevronDown, Menu } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import Image from 'next/image';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -44,7 +45,9 @@ export function Header({ onMenuClick }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-3 p-1 rounded-full hover:bg-slate-50 transition-colors cursor-pointer group">
-          <img
+          <Image
+            width={50}
+            height={50}
             src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aris"
             alt="Doctor Avatar"
             className="w-10 h-10 rounded-xl bg-slate-100 object-cover"

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   User,
   Lock,
@@ -12,19 +12,19 @@ import {
   ShieldCheck,
   PlusSquare,
   BadgeCheck,
-} from "lucide-react";
-import { useRegisterMutation } from "@/redux/api/authApi";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+} from 'lucide-react';
+import { useRegisterMutation } from '@/redux/api/authApi';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const Register = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      return toast.error("Mật khẩu xác nhận không khớp!");
+      return toast.error('Mật khẩu xác nhận không khớp!');
     }
 
     try {
@@ -48,10 +48,11 @@ const Register = () => {
         password: formData.password,
       }).unwrap();
 
-      toast.success("Đăng ký thành công!");
-      router.push("/login");
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Đăng ký thất bại!");
+      toast.success('Đăng ký thành công!');
+      router.push('/login');
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Đăng ký thất bại!');
       console.error(error);
     }
   };
@@ -74,7 +75,7 @@ const Register = () => {
       {/* Register Card */}
       <div
         className="w-full max-w-[550px] bg-white rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-slate-100 p-8 md:p-12 animate-zoom-in"
-        style={{ animationDelay: "0.2s" }}
+        style={{ animationDelay: '0.2s' }}
       >
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-extrabold text-slate-900 mb-4">
@@ -141,7 +142,7 @@ const Register = () => {
                 <Lock className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -173,7 +174,7 @@ const Register = () => {
                 <ShieldCheck className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
               </div>
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -197,20 +198,20 @@ const Register = () => {
 
           {/* Terms Agreement */}
           <p className="text-[13px] text-slate-500 leading-relaxed px-1">
-            Bằng cách tiếp tục, bạn đồng ý với{" "}
+            Bằng cách tiếp tục, bạn đồng ý với{' '}
             <Link
               href="/terms"
               className="text-blue-600 font-bold hover:underline"
             >
               Điều khoản dịch vụ
-            </Link>{" "}
-            và{" "}
+            </Link>{' '}
+            và{' '}
             <Link
               href="/privacy"
               className="text-blue-600 font-bold hover:underline"
             >
               Chính sách bảo mật
-            </Link>{" "}
+            </Link>{' '}
             của chúng tôi.
           </p>
 
@@ -220,7 +221,7 @@ const Register = () => {
             disabled={isLoading}
             className="w-full flex items-center justify-center py-5 px-8 rounded-2xl bg-[#0061d5] hover:bg-blue-700 text-white font-bold text-lg shadow-[0_12px_24px_-8px_rgba(0,97,213,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(0,97,213,0.5)] transform active:scale-[0.97] transition-all duration-300 group mt-4 h-[68px] disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Đang khởi tạo tài khoản..." : "Tạo tài khoản ngay"}
+            {isLoading ? 'Đang khởi tạo tài khoản...' : 'Tạo tài khoản ngay'}
             {!isLoading && (
               <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1.5 transition-transform" />
             )}
@@ -230,7 +231,7 @@ const Register = () => {
         {/* Login Link */}
         <div className="mt-10 text-center pt-8 border-t border-slate-50">
           <p className="text-[15px] text-slate-500">
-            Đã có tài khoản hệ thống?{" "}
+            Đã có tài khoản hệ thống?{' '}
             <Link
               href="/login"
               className="font-bold text-blue-600 hover:text-blue-700 transition-colors border-b-2 border-transparent hover:border-blue-600 ml-1"

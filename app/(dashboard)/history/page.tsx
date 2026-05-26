@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
 import {
   FileText,
   CheckCircle,
@@ -11,78 +10,73 @@ import {
   RotateCcw,
   ChevronLeft,
   ChevronRight,
-  BarChart3,
-  QrCode,
-  ArrowRight,
-} from "lucide-react";
+} from 'lucide-react';
 
 const stats = [
   {
-    label: "TỔNG DOANH SỐ",
-    value: "1,284",
+    label: 'TỔNG DOANH SỐ',
+    value: '1,284',
     icon: FileText,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
+    color: 'text-blue-600',
+    bg: 'bg-blue-50',
   },
   {
-    label: "TỶ LỆ THÀNH CÔNG",
-    value: "98.2%",
+    label: 'TỶ LỆ THÀNH CÔNG',
+    value: '98.2%',
     icon: CheckCircle,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
+    color: 'text-emerald-600',
+    bg: 'bg-emerald-50',
   },
 ];
 
 const orders = [
   {
-    id: "#RX-88421",
-    date: "24 thg 10, 2023",
-    time: "14:32 PM",
-    customer: "Elena Martinez",
-    cid: "P-992384",
-    total: "$142.50",
-    status: "Hoàn thành",
-    statusColor: "bg-emerald-500",
-    statusBg: "bg-emerald-50 text-emerald-600",
+    id: '#RX-88421',
+    date: '24 thg 10, 2023',
+    time: '14:32 PM',
+    customer: 'Elena Martinez',
+    cid: 'P-992384',
+    total: '$142.50',
+    status: 'Hoàn thành',
+    statusColor: 'bg-emerald-500',
+    statusBg: 'bg-emerald-50 text-emerald-600',
   },
   {
-    id: "#RX-88420",
-    date: "24 thg 10, 2023",
-    time: "12:15 PM",
-    customer: "Khách vãng lai",
-    cid: "N/A",
-    total: "$28.99",
-    status: "Hoàn tiền",
-    statusColor: "bg-rose-500",
-    statusBg: "bg-rose-50 text-rose-600",
+    id: '#RX-88420',
+    date: '24 thg 10, 2023',
+    time: '12:15 PM',
+    customer: 'Khách vãng lai',
+    cid: 'N/A',
+    total: '$28.99',
+    status: 'Hoàn tiền',
+    statusColor: 'bg-rose-500',
+    statusBg: 'bg-rose-50 text-rose-600',
   },
   {
-    id: "#RX-88419",
-    date: "23 thg 10, 2023",
-    time: "17:45 PM",
-    customer: "James Harrison",
-    cid: "P-882103",
-    total: "$315.00",
-    status: "Hoàn thành",
-    statusColor: "bg-emerald-500",
-    statusBg: "bg-emerald-50 text-emerald-600",
+    id: '#RX-88419',
+    date: '23 thg 10, 2023',
+    time: '17:45 PM',
+    customer: 'James Harrison',
+    cid: 'P-882103',
+    total: '$315.00',
+    status: 'Hoàn thành',
+    statusColor: 'bg-emerald-500',
+    statusBg: 'bg-emerald-50 text-emerald-600',
   },
   {
-    id: "#RX-88418",
-    date: "23 thg 10, 2023",
-    time: "16:10 PM",
-    customer: "Sarah Connor",
-    cid: "P-912882",
-    total: "$54.25",
-    status: "Hoàn thành",
-    statusColor: "bg-emerald-500",
-    statusBg: "bg-emerald-50 text-emerald-600",
+    id: '#RX-88418',
+    date: '23 thg 10, 2023',
+    time: '16:10 PM',
+    customer: 'Sarah Connor',
+    cid: 'P-912882',
+    total: '$54.25',
+    status: 'Hoàn thành',
+    statusColor: 'bg-emerald-500',
+    statusBg: 'bg-emerald-50 text-emerald-600',
   },
 ];
 
 export default function HistoryPage() {
-  const [activeStatus, setActiveStatus] = useState("Tất cả trạng thái");
-
   return (
     <div className="space-y-10 animate-fade-in relative">
       {/* Header Section */}
@@ -192,16 +186,16 @@ export default function HistoryPage() {
                 </td>
                 <td className="py-6 md:py-7 px-4 md:px-6">
                   <div className="flex items-center gap-3 md:gap-4">
-                    {order.cid === "N/A" ? (
+                    {order.cid === 'N/A' ? (
                       <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-slate-100 flex items-center justify-center text-[9px] md:text-[10px] font-black text-slate-400 shrink-0">
                         WK
                       </div>
                     ) : (
                       <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[9px] md:text-[10px] font-black text-blue-600 shrink-0">
                         {order.customer
-                          .split(" ")
+                          .split(' ')
                           .map((n) => n[0])
-                          .join("")}
+                          .join('')}
                       </div>
                     )}
                     <div className="min-w-0">
@@ -242,7 +236,7 @@ export default function HistoryPage() {
         {/* Pagination bar */}
         <div className="py-6 px-6 md:px-10 bg-[#f8fafc]/50 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[13px] md:text-[14px] font-bold text-slate-400 text-center md:text-left">
-            Hiển thị <span className="text-slate-800">1-4</span> trên tổng số{" "}
+            Hiển thị <span className="text-slate-800">1-4</span> trên tổng số{' '}
             <span className="text-slate-800">1,284</span> đơn hàng
           </p>
           <div className="flex items-center gap-3">
@@ -280,7 +274,9 @@ export default function HistoryPage() {
                 Cần giám sát phê duyệt
               </p>
             </div>
-            <h3 className="text-4xl md:text-5xl font-black text-slate-900">12</h3>
+            <h3 className="text-4xl md:text-5xl font-black text-slate-900">
+              12
+            </h3>
           </div>
           <div className="w-14 h-14 md:w-16 md:h-16 bg-rose-50 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shrink-0">
             <RotateCcw className="w-7 h-7 md:w-8 md:h-8 text-rose-600" />
@@ -324,7 +320,7 @@ export default function HistoryPage() {
                   <div className="w-full bg-[#0061d5]/10 rounded-t-sm group-hover:bg-[#0061d5]/20 h-10 md:h-12" />
                   <div
                     className="w-full bg-[#0061d5] rounded-b-sm group-hover:bg-blue-700"
-                    style={{ height: `${Math.random() * 30 + 15}px` }}
+                    style={{ height: `${((i * 7) % 30) + 15}px` }}
                   />
                 </div>
               </div>

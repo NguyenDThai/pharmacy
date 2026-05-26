@@ -1,9 +1,9 @@
-import { logout, setCredentials, setLoading } from "@/redux/slides/authSlice";
-import { RootState } from "@/redux/store";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useMeMutation } from "@/redux/api/authApi";
+import { logout, setCredentials, setLoading } from '@/redux/slides/authSlice';
+import { RootState } from '@/redux/store';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useMeMutation } from '@/redux/api/authApi';
 
 export function useGetMe() {
   const { user, isLoading } = useSelector((state: RootState) => state.auth);
@@ -27,7 +27,7 @@ export function useGetMe() {
       } catch (error) {
         const err = error as { status?: number };
         if (err?.status !== 401) {
-          console.error("Lỗi lấy thông tin người dùng đăng nhập:", error);
+          console.error('Lỗi lấy thông tin người dùng đăng nhập:', error);
         }
         dispatch(logout());
       } finally {
@@ -36,5 +36,5 @@ export function useGetMe() {
     };
 
     fetchCurrentUser();
-  }, [dispatch, user, isLoading]);
+  }, [dispatch, user, isLoading, getMe]);
 }
