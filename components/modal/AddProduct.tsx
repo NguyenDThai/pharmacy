@@ -5,6 +5,7 @@ import {
   getTodayISOString,
 } from '@/lib/formatVietnameseDate';
 import { validateProduct } from '@/lib/validateProduct';
+import AddCategories from '@/components/modal/AddCategories';
 
 interface AddProductProps {
   onClose: () => void;
@@ -19,6 +20,7 @@ const AddProduct = ({ onClose }: AddProductProps) => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [price, setPrice] = useState('');
+  const [showAddCategory, setShowAddCategory] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -163,7 +165,11 @@ const AddProduct = ({ onClose }: AddProductProps) => {
 
             <div className="flex items-center gap-1 mt-2">
               <Plus className="w-4 h-4 text-slate-400" />
-              <button className="text-sm hover:text-blue-600 cursor-pointer transition-all duration-300">
+              <button
+                type="button"
+                onClick={() => setShowAddCategory(true)}
+                className="text-sm hover:text-blue-600 cursor-pointer transition-all duration-300"
+              >
                 Thêm danh mục
               </button>
             </div>
@@ -269,6 +275,11 @@ const AddProduct = ({ onClose }: AddProductProps) => {
           </div>
         </form>
       </div>
+
+      {/* Modal Add Categories */}
+      {showAddCategory && (
+        <AddCategories onClose={() => setShowAddCategory(false)} />
+      )}
     </div>
   );
 };
